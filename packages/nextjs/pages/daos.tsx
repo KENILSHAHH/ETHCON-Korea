@@ -3,7 +3,9 @@ import { CheckIcon } from '@heroicons/react/20/solid'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 import { useRouter } from 'next/router';
-
+import Web3Modal from 'web3modal';
+import { Identity } from "@semaphore-protocol/identity"
+import {ethers} from 'ethers'
 const includedFeatures = [
   'Proposal voting access',
    'Lend/Borrow money with the help Union Finance'
@@ -16,10 +18,313 @@ const excludedFeatures = [
 export default function daos() {
   const router = useRouter();
   const [githubId, setGithubId] = useState("")
+  const spruceabi =[
+	{
+		"inputs": [
+			{
+				"internalType": "address payable",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "borrow",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "executeProposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "daoName",
+				"type": "string"
+			},
+			{
+				"internalType": "string[]",
+				"name": "semaphoreIdentity",
+				"type": "string[]"
+			}
+		],
+		"name": "joinDao",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address payable",
+				"name": "recipient",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "lend",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_title",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
+			}
+		],
+		"name": "proposal",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_daoName",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_numberOfCommits",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "_createProposal",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "_voteForProposal",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "_eligibleForCredit",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_proposalId",
+				"type": "uint256"
+			}
+		],
+		"name": "vote",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "createProposal",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "daoName",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "daoUsers",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "eligibleForCredit",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "hasVoted",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "numberOfCommits",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "proposals",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "creator",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "votes",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "executed",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "voteForProposal",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
   const signInWithEthereum = async (event: any) => {
+    event.preventDefault();
+    
+              const web3Modal = new Web3Modal();
+            const connection = await web3Modal.connect();
+            console.log("hey")
+            const provider = new ethers.providers.Web3Provider(connection);
+             console.log("hi")
+        const signer = await provider.getSigner();
+           let contract = new ethers.Contract(
+      '0xD81cf3CbF8B7554208146451A3219c29534D80cA',
+      spruceabi,
+      signer
+    );
+        let txn = await contract.joinDao('BuidlGuidl','Arbitrum Ambassador Program');
+        console.log(txn)
     event.preventDefault()
+      setTimeout(() => {
+          setGithubId("KENILSHAHH")
+    }, 7500);
+
   }
   const routee = async (event: any) => {
+  
     router.push('/joinDao')
   }
   return (

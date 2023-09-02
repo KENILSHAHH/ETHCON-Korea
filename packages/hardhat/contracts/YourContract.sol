@@ -22,6 +22,7 @@ contract YourContract is UnionBorrower{
 
 	Proposal[] public proposals;
 	mapping(address => bool) public hasVoted;
+mapping (string => string[]) public daoUsers;
 
 	constructor(
 		string memory _daoName,
@@ -67,7 +68,10 @@ contract YourContract is UnionBorrower{
 function borrow(address payable recipient, uint256 amount) public payable {
 		require(amount <= address(this).balance, "Insufficient balance");
 _borrow(uint96 amount):
-		
+
+	}
+	function joinDao(string memory daoName, string[] memory semaphoreIdentity){
+		daoUsers[daoName] = semaphoreIdentity;
 	}
 
 	function vote(uint256 _proposalId) public {
@@ -94,8 +98,8 @@ _borrow(uint96 amount):
 		);
 
 		proposal.executed = true;
-		// Implement proposal execution logic here
+	
 	}
 
-	// Additional functions for borrowing/lending money can be added here
+	
 }

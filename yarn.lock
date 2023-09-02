@@ -650,7 +650,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethersproject/bignumber@npm:5.7.0, @ethersproject/bignumber@npm:^5.4.1, @ethersproject/bignumber@npm:^5.7.0":
+"@ethersproject/bignumber@npm:5.7.0, @ethersproject/bignumber@npm:^5.4.1, @ethersproject/bignumber@npm:^5.5.0, @ethersproject/bignumber@npm:^5.7.0":
   version: 5.7.0
   resolution: "@ethersproject/bignumber@npm:5.7.0"
   dependencies:
@@ -856,7 +856,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethersproject/random@npm:5.7.0, @ethersproject/random@npm:^5.7.0":
+"@ethersproject/random@npm:5.7.0, @ethersproject/random@npm:^5.5.1, @ethersproject/random@npm:^5.7.0":
   version: 5.7.0
   resolution: "@ethersproject/random@npm:5.7.0"
   dependencies:
@@ -915,7 +915,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethersproject/strings@npm:5.7.0, @ethersproject/strings@npm:^5.7.0":
+"@ethersproject/strings@npm:5.7.0, @ethersproject/strings@npm:^5.6.1, @ethersproject/strings@npm:^5.7.0":
   version: 5.7.0
   resolution: "@ethersproject/strings@npm:5.7.0"
   dependencies:
@@ -2419,6 +2419,8 @@ __metadata:
     "@headlessui/react": ^1.7.17
     "@heroicons/react": ^2.0.11
     "@rainbow-me/rainbowkit": ^1.0.4
+    "@semaphore-protocol/group": ^3.11.0
+    "@semaphore-protocol/identity": ^3.11.0
     "@sort/react-components": ^0.2.0
     "@trivago/prettier-plugin-sort-imports": ^4.1.1
     "@types/node": ^17.0.35
@@ -2457,6 +2459,31 @@ __metadata:
     zustand: ^4.1.2
   languageName: unknown
   linkType: soft
+
+"@semaphore-protocol/group@npm:^3.11.0":
+  version: 3.11.0
+  resolution: "@semaphore-protocol/group@npm:3.11.0"
+  dependencies:
+    "@ethersproject/bignumber": ^5.7.0
+    "@ethersproject/bytes": ^5.7.0
+    "@ethersproject/keccak256": ^5.7.0
+    "@zk-kit/incremental-merkle-tree": 1.1.0
+  checksum: b106950ba2215427bbb76ea3e0898820c07586c35ff02cd4a7793bc2b085049677ac7328fbb8207ac958ee092462416ab11d377f6f8c4654d6ef807dd2426885
+  languageName: node
+  linkType: hard
+
+"@semaphore-protocol/identity@npm:^3.11.0":
+  version: 3.11.0
+  resolution: "@semaphore-protocol/identity@npm:3.11.0"
+  dependencies:
+    "@ethersproject/bignumber": ^5.5.0
+    "@ethersproject/keccak256": ^5.7.0
+    "@ethersproject/random": ^5.5.1
+    "@ethersproject/strings": ^5.6.1
+    js-sha512: ^0.8.0
+  checksum: 7f2fa97010aa2c84af0b3347b066e809e047e9b60ac4c288860359cca6847aca9bc5307b034a954294eb411a10e3328c8d5be27bd8dce35293b912a8b32547cd
+  languageName: node
+  linkType: hard
 
 "@sentry/core@npm:5.30.0":
   version: 5.30.0
@@ -4455,6 +4482,13 @@ __metadata:
     "@walletconnect/window-getters": ^1.0.1
     tslib: 1.14.1
   checksum: e82aea7195c6fe95c00e87bb38051c5549838c2e8302da94f1afa48206f79f0b620166c9820f847494505d282d1568e2086a1561b0493d2d0a1fa115f9106aef
+  languageName: node
+  linkType: hard
+
+"@zk-kit/incremental-merkle-tree@npm:1.1.0":
+  version: 1.1.0
+  resolution: "@zk-kit/incremental-merkle-tree@npm:1.1.0"
+  checksum: 5f2d6dd2a4898aa75f72d5b3811ab965c369f0a51561250313849fb9a6a1163064c4887da3bea298d25e80a4bc79b3c6997edf6492a6a8fc157512bc3fcb5e23
   languageName: node
   linkType: hard
 
@@ -10160,6 +10194,13 @@ __metadata:
   version: 0.8.0
   resolution: "js-sha3@npm:0.8.0"
   checksum: 75df77c1fc266973f06cce8309ce010e9e9f07ec35ab12022ed29b7f0d9c8757f5a73e1b35aa24840dced0dea7059085aa143d817aea9e188e2a80d569d9adce
+  languageName: node
+  linkType: hard
+
+"js-sha512@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "js-sha512@npm:0.8.0"
+  checksum: 32ca371ebd14c6c5c83360fd8b036cad2211537bef546b199ac8b901917299cab4c68f7f7c26ae72f836bbce0349cb463df9a62cdb4c90e38090fdb4db89ee87
   languageName: node
   linkType: hard
 
